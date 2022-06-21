@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff966088f686d48e09cc46c7f5942797, type: 3}
+  m_Name: LevelCreatorSettings
+  m_EditorClassIdentifier: 
+  outputFolderPath: Assets/BlockEscape/AssetFiles/Levels
+  overwriteFiles: 0
+  genItems:
+  - isActive: 1
+    minMoves: 3
+    maxMoves: 4
+    subFolder: 1_beginner
+    filenamePrefix: 
+    numLevels: 101
+    expanded: 1
+  - isActive: 1
+    minMoves: 5
+    maxMoves: 6
+    subFolder: 2_easy
+    filenamePrefix: 
+    numLevels: 200
+    expanded: 0
+  - isActive: 1
+    minMoves: 7
+    maxMoves: 9
+    subFolder: 3_medium
+    filenamePrefix: 
+    numLevels: 200
+    expanded: 0
+  - isActive: 1
+    minMoves: 10
+    maxMoves: 15
+    subFolder: 4_hard
+    filenamePrefix: 
+    numLevels: 200
+    expanded: 0
+  - isActive: 1
+    minMoves: 16
+    maxMoves: 22
+    subFolder: 5_veryhard
+    filenamePrefix: 
+    numLevels: 200
+    expanded: 0
+  - isActive: 1
+    minMoves: 23
+    maxMoves: 33
+    subFolder: 6_expert
+    filenamePrefix: 
+    numLevels: 200
+    expanded: 1
+  - isActive: 1
+    minMoves: 23
+    maxMoves: 33
+    subFolder: 6_expert
+    filenamePrefix: 
+    numLevels: 200
+    expanded: 1
