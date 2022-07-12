@@ -152,7 +152,8 @@ public class RemoteItemSettings
         item.numLevels = numLevels;
         item.subFolder = subFolder;
         item.filenamePrefix = filenamePrefix;
-        Debug.Log($"---- Fix Data[{id}]  --> {item}");
+        item.expanded = true;
+        Debug.Log($"---- Fix Data[{id}]  {item.minMoves}/{item.maxMoves }  : {item.numLevels}  -->  {item.subFolder}");
     }
     
     
