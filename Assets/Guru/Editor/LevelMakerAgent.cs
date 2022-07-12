@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BBG.BlockEscape;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -65,12 +67,12 @@ public static class LevelMakerAgent
         
         Debug.Log($"------------ START JENKINS BUILD ------------");
         int maxCount = 7;
-        List<RemoteItemSettings> settingItems = new List<RemoteItemSettings>(maxCount);
+        List<RemoteItemSettings> remoteItems = new List<RemoteItemSettings>(maxCount);
         
         for (int i = 0; i < 7; ++i)
         {
             //  录入系统参数
-            RemoteItemSettings item = new RemoteItemSettings()
+            RemoteItemSettings rt = new RemoteItemSettings()
             {
                 id = i,
                 isActive = GetEnvironmentsBool($"IS_ACTIVE_{i}"),
@@ -78,16 +80,51 @@ public static class LevelMakerAgent
                 maxMoves = GetEnvironmentsInt($"MAX_MOVES_{i}"),
                 numLevels = GetEnvironmentsInt($"NUM_LEVELS_{i}"),
                 subFolder = GetEnvironmentsString($"SUB_FOLDER_{i}"),
-                filenamePrifix = GetEnvironmentsString($"FILENAME_PREFIX_{i}"),
+                filenamePrefix = GetEnvironmentsString($"FILENAME_PREFIX_{i}"),
             };
-            settingItems.Add(item);
+            remoteItems.Add(rt);
         }
-        //TODO 拉起构建窗口
+        // 注入Jenkins数据
+        var levelSetting = Resources.Load<LevelCreatorSettings>(nameof(LevelCreatorSettings));
+        if (levelSetting != null)
+        {
+            for (int i = 0; i < levelSetting.genItems.Count; i++)
+            {
+                var item = levelSetting.genItems[i];
+                if (null != item && i < remoteItems.Count)
+                {
+                    remoteItems[i].FixData(ref item);
+                }
+            }
+        }
+        
+        //  更改对应的元素
+        EditorUtility.SetDirty(levelSetting);
+        AssetDatabase.SaveAssets();
+        
+        LevelCreatorEditor.AutoBuildLevels(() =>
+        {
+            Debug.Log($"--------- All levels create over -------------");
+        });
+        
     }
-    
+
+
 
     #endregion
+
+
+    #region 单元测试
+
+
     
+    [MenuItem("Test/load levelSettings")]
+    private static void UnitTest()
+    {
+        
+    }
+
+    #endregion
 
 
 }
@@ -103,7 +140,22 @@ public class RemoteItemSettings
     public int maxMoves;
     public int numLevels;
     public string subFolder;
-    public string filenamePrifix;
+    public string filenamePrefix;
+
+
+    public void FixData(ref LevelCreatorSettings.GenItem item)
+    {
+        item.isActive = isActive;
+        item.minMoves = minMoves;
+        item.maxMoves = maxMoves;
+        item.numLevels = numLevels;
+        item.subFolder = subFolder;
+        item.filenamePrefix = filenamePrefix;
+        Debug.Log($"---- Fix Data[{id}]  --> {item}");
+    }
+    
+    
+    
 }
 
 #endregion

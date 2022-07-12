@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace BBG.BlockEscape
 {
@@ -295,8 +298,9 @@ namespace BBG.BlockEscape
 			}
 
 			EditorUtility.ClearProgressBar();
-
 			AssetDatabase.Refresh();
+			
+			onGenLevelOver?.Invoke(); // call gen finish steps
 		}
 
 		private int GetNextActiveGenItemIndex(int fromIndex)
@@ -467,5 +471,19 @@ namespace BBG.BlockEscape
 		
 		#endregion // Private Methods
 
+		#region Extension
+
+		private static Action onGenLevelOver;
+		public static void AutoBuildLevels(Action callback)
+		{
+			onGenLevelOver = callback;
+			Instance.StartGeneratingLevels();
+		}
+		
+		
+		
+		
+
+		#endregion
 	}
 }
