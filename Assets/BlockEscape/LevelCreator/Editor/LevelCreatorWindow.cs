@@ -23,7 +23,22 @@ namespace BBG.BlockEscape
 		private int						iterations;
 
 		private double startTime;
-		
+
+
+		private static LevelCreatorEditor _instance;
+		public static LevelCreatorEditor Instance
+		{
+			get
+			{
+				if (_instance == null)
+				{
+					_instance = CreateWindow<LevelCreatorEditor>();
+				}
+
+				return _instance;
+			}
+		}
+
 		#endregion // Member Variables
 
 		#region Properties
