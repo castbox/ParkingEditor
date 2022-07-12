@@ -69,18 +69,19 @@ public static class LevelMakerAgent
         int maxCount = 7;
         List<RemoteItemSettings> remoteItems = new List<RemoteItemSettings>(maxCount);
         
-        for (int i = 0; i < 7; ++i)
+        for (int i = 0; i < maxCount; i++)
         {
+            int id = i + 1;
             //  录入系统参数
             RemoteItemSettings rt = new RemoteItemSettings()
             {
-                id = i,
-                isActive = GetEnvironmentsBool($"IS_ACTIVE_{i}"),
-                minMoves = GetEnvironmentsInt($"MIN_MOVES_{i}"),
-                maxMoves = GetEnvironmentsInt($"MAX_MOVES_{i}"),
-                numLevels = GetEnvironmentsInt($"NUM_LEVELS_{i}"),
-                subFolder = GetEnvironmentsString($"SUB_FOLDER_{i}"),
-                filenamePrefix = GetEnvironmentsString($"FILENAME_PREFIX_{i}"),
+                id = id,
+                isActive = GetEnvironmentsBool($"IS_ACTIVE_{id}"),
+                minMoves = GetEnvironmentsInt($"MIN_MOVES_{id}"),
+                maxMoves = GetEnvironmentsInt($"MAX_MOVES_{id}"),
+                numLevels = GetEnvironmentsInt($"NUM_LEVELS_{id}"),
+                subFolder = GetEnvironmentsString($"SUB_FOLDER_{id}"),
+                filenamePrefix = GetEnvironmentsString($"FILENAME_PREFIX_{id}"),
             };
             remoteItems.Add(rt);
         }
